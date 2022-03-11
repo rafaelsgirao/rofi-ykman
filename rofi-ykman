@@ -4,6 +4,7 @@
 # Yubikey oath utility
 
 #2019 nukeop
+#2022 Rafael Girão https://github.com/rafaelsgirao
 
 if [ ! "$(ykman info)" ]
 then
@@ -11,10 +12,10 @@ then
     exit 1
 fi
 
-OPTIONS=$(ykman oath list)
+OPTIONS=$(ykman oath accounts list)
 LAUNCHER="rofi -dmenu -i -p YubikeyOATH"
 
 option=`echo "${OPTIONS/, TOTP/\n}" | $LAUNCHER`
-code=$(ykman oath code "$option")
+code=$(ykman oath accounts code "$option")
 IFS=', ' read -r -a code <<< "$code"
 echo "${code[-1]}" | xclip -selection clipboard
