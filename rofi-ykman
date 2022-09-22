@@ -12,8 +12,11 @@ then
     exit 1
 fi
 
+dir="$HOME/.config/rofi"
+theme="style"
+
 OPTIONS=$(ykman oath accounts list)
-LAUNCHER="rofi -dmenu -i -p YubikeyOATH"
+LAUNCHER="rofi -dmenu -i -p -theme $dir/$theme YubikeyOATH"
 
 option=`echo "${OPTIONS/, TOTP/\n}" | $LAUNCHER`
 code=$(ykman oath accounts code "$option")
